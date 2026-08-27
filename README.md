@@ -197,6 +197,14 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 | **MPO** | Post-training compression, inference | Excellent for large matrices |
 | **Kronecker** | Full-rank updates, simple factorizations | Limited to certain matrix shapes |
 
+## Open Challenges
+
+1. **Compression-Realization Gap (ρ_gap)**: Bridging algorithmic compression and hardware realization
+2. **Dynamic Rank Adaptation**: Online rank adjustment during inference
+3. **Tensorization + Quantization**: Hybrid approaches for extreme compression
+4. **Theoretical Understanding**: When does tensorization preserve model capabilities?
+5. **Unified Evaluation Protocol**: Standard benchmarks for comparing tensor methods
+
 ### Related GitHub pages
 
 - [Awesome Tensorial Neural Networks](https://github.com/tnbar/awesome-tensorial-neural-networks)
