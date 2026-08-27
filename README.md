@@ -214,6 +214,29 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [Awesome LLM Inference](https://github.com/xlite-dev/Awesome-LLM-Inference)
 - [Awesome LMMs Mechanistic Interpretability](https://github.com/itsqyh/Awesome-LMMs-Mechanistic-Interpretability)
 
+## Contributing
+
+We welcome contributions and collaborations to make this curated list more comprehensive and useful for the community!
+
+### Ways to Contribute
+- **Add new papers**: Suggest relevant papers we may have missed
+- **Update entries**: Improve descriptions, add missing metadata, or correct errors
+- **Suggest new categories**: Propose organizational improvements
+- **Share implementations**: Add links to official code repositories
+
+### How to Submit
+1. Fork the repository
+2. Make your changes (see [guidelines](#contribution-guidelines) below)
+3. Submit a pull request with a clear description of your changes
+
+Alternatively, feel free to **open an issue** with your suggestions.
+
+### Contact
+For questions, collaborations, or major suggestions, reach out to:
+- **Matvei Tarasov**: [mattarasov704@gmail.com](mailto:mattarasov704@gmail.com)
+
+We look forward to your contributions!
+
 ## Citation
 
 ```BibTeX
