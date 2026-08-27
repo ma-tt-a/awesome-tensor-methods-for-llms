@@ -8,8 +8,6 @@ This repository accompanies our survey and collects the papers, software, and ba
 
 ## Contents
 
----
-
 - [Survey](#survey)
 - [Research Papers](#research-papers)
 - [Software](#software)
@@ -17,8 +15,6 @@ This repository accompanies our survey and collects the papers, software, and ba
 - [Citation](#citation)
 
 ## Survey
-
----
 
 Tensor decompositions are usually presented as isolated compression mechanisms. Our survey treats tensorization as a common structural principle acting on token representations, weights, adaptation updates, caches, and activations, and organizes the literature through two complementary views:
 
@@ -35,8 +31,6 @@ The survey also provides:
 - open challenges, in particular the *compression-realization gap*, formulated through the metric $\rho_{\rm gap}$, which separates algorithmic overhead from hardware realization
 
 ## Research Papers
-
----
 
 Papers are grouped by lifecycle stage, following the lifecycle view of the survey.
 
@@ -108,8 +102,6 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 
 ## Software
 
----
-
 ### Python tensor libraries
 
 | Library                                                    | Decompositions                 | Description                                                                                    | NN layers | Backend                                         |
@@ -150,8 +142,6 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [A Practical Tensor-Network Compression Pipeline for Production-Scale Large Language Models](https://arxiv.org/abs/2602.01613v1)
 
 ## Related Literature
-
----
 
 ### Classical tensor decomposition and tensor networks
 
@@ -198,8 +188,6 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [Awesome LMMs Mechanistic Interpretability](https://github.com/itsqyh/Awesome-LMMs-Mechanistic-Interpretability)
 
 ## Citation
-
----
 
 ```BibTeX
 @misc{tarasov2026tensorsforllms,
