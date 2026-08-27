@@ -235,7 +235,7 @@ Alternatively, feel free to **open an issue** with your suggestions.
 For questions, collaborations, or major suggestions, reach out to:
 - **Matvei Tarasov**: [mattarasov704@gmail.com](mailto:mattarasov704@gmail.com)
 
-We look forward to your contributions!
+All contributions will be acknowledged in the repository.
 
 ## Citation
 
