@@ -4,15 +4,18 @@
 
 A curated list of tensor methods for large language models — tensor decompositions and tensor networks applied inside the Transformer (embedding layer, attention, feed-forward networks) and across the model lifecycle, from tokenization through embeddings, pre-training, adaptation, compression, and inference to interpretability.
 
-This repository accompanies our survey and collects the papers, software, and background literature behind it.
+This repository accompanies our survey and collects the papers, software, and background literature behind it. Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Contents
 
 - [Survey](#survey)
+- [Citation](#citation)
+- [Tensor Formats](#tensor-formats)
 - [Research Papers](#research-papers)
 - [Software](#software)
+- [Challenges and Future Directions](#challenges-and-future-directions)
 - [Related Literature](#related-literature)
-- [Citation](#citation)
+- [Related Projects](#related-projects)
 
 ## Survey
 
@@ -30,14 +33,33 @@ The survey also provides:
 - connections to neighboring efficiency techniques and to probabilistic tensor networks
 - open challenges, in particular the *compression-realization gap*, formulated through the metric $\rho_{\rm gap}$, which separates algorithmic overhead from hardware realization
 
-## Quick Glossary
+## Citation
 
-- **CP (CANDECOMP/PARAFAC)**: Sum of rank-1 tensors; simplest decomposition
-- **TT (Tensor Train)**: Chain of 3rd-order cores; efficient for sequential data  
-- **Tucker**: Core tensor with factor matrices; most flexible
-- **MPO (Matrix Product Operator)**: TT for matrices; good for weight compression
-- **TTM (Tensor Train Matrix)**: TT representation of a matrix
-- **BT (Block-Term)**: Sum of Tucker decompositions
+If you find our or this repository useful, please cite:
+
+```BibTeX
+@misc{tarasov2026tensorsforllms,
+author = {Tarasov, Matvei and Ahmadi-Asl, Salman and de Almeida, Andr\'e L. F. and Cichocki, Andrzej},
+title = {Tensor Methods for Language Models: From Token Representation to Training, Adaptation, Compression, Inference, and Interpretability},
+eprint={tbd},
+archivePrefix={arXiv},
+year = {2026},
+url = {tbd}
+}
+```
+
+## Tensor Formats
+
+Legend for the *Decomposition* column of the tables below.
+
+- **CP (Canonical Polyadic)** — sum of $R$ canonical rank-one tensors
+- **Tucker** — a dense core tensor contracted with one factor matrix per mode
+- **TT (Tensor Train)** — a chain of third-order cores
+- **TTM (Tensor Train Matrix)** — TT applied to a matrix with input and output modes paired
+- **MPS (Matrix Product State)** — the physics name for TT
+- **MPO (Matrix Product Operator)** — the physics name for TTM
+- **BT (Block Term)** — sum of $K$ Tucker terms
+- **Kronecker** — matrix written as a sum of $R$ Kronecker products
 
 ## Research Papers
 
@@ -128,8 +150,8 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 
 | Design                                                                                                                                      | Description                                           | Venue | Year |
 | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ----- | ---- |
-| [ETTE](https://dl.acm.org/doi/10.1145/3579371.3589103)                                                                                      | TT-format DNN inference, algorithm/hardware co-design | ISCA  | 2023 |
-| [FETTA](https://ieeexplore.ieee.org/document/11333282)                                                                                      | Tensorized NN training, flexible contraction order    | IEEE  | 2025 |
+| [ETTE: Efficient Tensor-Train-based Computing Engine for Deep Neural Networks](https://dl.acm.org/doi/10.1145/3579371.3589103)              | TT-format DNN inference, algorithm/hardware co-design | ISCA  | 2023 |
+| [FETTA: Flexible and Efficient Hardware Accelerator for Tensorized Neural Network Training](https://ieeexplore.ieee.org/document/11333282)  | Tensorized NN training, flexible contraction order    | IEEE  | 2025 |
 | [A Tensor-Train Decomposition based Compression of LLMs on Group Vector Systolic Accelerator](https://arxiv.org/abs/2501.19135)             | TT-compressed LLM inference                           | Arxiv | 2025 |
 | [Ultra Memory-Efficient On-FPGA Training of Transformers via Tensor-Compressed Optimization](https://ieeexplore.ieee.org/document/11121368) | Memory-efficient tensorized Transformer training      | IEEE  | 2025 |
 
@@ -149,6 +171,32 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 
 - [Compressing Transformer Language Models via Matrix Product Operator Decomposition: A Case Study on PicoGPT](https://arxiv.org/abs/2603.28534)
 - [A Practical Tensor-Network Compression Pipeline for Production-Scale Large Language Models](https://arxiv.org/abs/2602.01613v1)
+
+## Challenges and Future Directions
+
+### Challenges
+
+Obstacles that have to be removed for existing tensor methods to become reliable and efficient.
+
+1. **Compression-realization gap ($\rho_{\rm gap}$)** — GPUs are built for dense GEMMs, whereas tensor contractions are small, sequential, and irregular, so fewer parameters need not mean faster computation.
+2. **Rank selection** — optimal ranks differ across layers and component types, and matrix-adaptive schemes such as AdaLoRA do not extend straightforwardly to tensor ranks.
+3. **Tensorization scheme** — schemes with equal parameter count differ in approximation quality and contraction cost, and the space of admissible reshapings is large with an expensive objective to evaluate.
+4. **New tensor networks** — richer topologies (tensor ring, tree-structured, fully-connected, PEPS, MERA, Kronecker tensor decomposition) are potentially more expressive, but complicate rank and scheme choice and raise contraction latency.
+5. **Training and optimization dynamics** — tensor parameterization reshapes the loss landscape, while optimizers such as Adam are designed and tuned for dense weight matrices.
+6. **Scaling** — training tensorized models from scratch at several scales is beyond most academic compute, so there is no analogue of scaling laws for tensorized models.
+7. **Compatibility with neighboring efficiency methods** — orthogonality to quantization, pruning, and distillation holds in principle, but whether the gains add up and how the errors compose is unknown.
+8. **Benchmarking and evaluation** — different baselines, datasets, and per-paper tuning make reported gains incomparable; a per-stage benchmark should report the compression-realization gap next to quality.
+
+### Future Directions
+
+Longer-horizon directions that change where tensorization enters the lifecycle, which objects it acts on, or what it is meant to provide.
+
+1. **Tokenization** — no tensor method reaches the tokenizer, and vocabulary and embedding table are still built in sequence; the obstacle is that the tokenizer is a discrete, non-differentiable map with no continuous object to factorize.
+2. **Interpretability** — new rather than empty: multilinear structure can be *added* to the analysis tool, *reformulated* from a model that is already multilinear, or *imposed* at training time as an architectural constraint.
+3. **Lifecycle-level co-design** — jointly selecting schemes and ranks across embeddings, pre-training, adaptation, compression, and the decoding contraction schedule, reported as Pareto frontiers over quality, memory, latency, and energy.
+4. **Tensorized training state and distributed learning** — extending tensorization from weights to activations, gradients, optimizer moments, and communication buffers, whose useful ranks are transient and change during training.
+5. **Conditional and elastic tensorization** — allocating tensor capacity per layer, token, context length, or task at runtime, turning rank from a static hyperparameter into a compute budget.
+6. **Multimodal and modular architectures** — multimodal and mixture-of-experts models expose semantic modes absent from a single dense text model, such as modality, expert, routing group, and spatial or temporal position.
 
 ## Related Literature
 
@@ -187,25 +235,7 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [A Practical Review of Mechanistic Interpretability for Transformer-Based Language Models](https://arxiv.org/abs/2407.02646)
 - [Mechanistic Interpretability for AI Safety -- A Review](https://arxiv.org/abs/2404.14082)
 
-## Choosing a Decomposition
-
-| Decomposition | Best For | Trade-offs |
-|---------------|----------|------------|
-| **CP** | Embedding tables, simple interactions | Rank selection is NP-hard |
-| **TT** | Sequential data, weight matrices | Moderate compression, good balance |
-| **Tucker** | Multi-head attention, projection groups | Most flexible but memory-intensive core |
-| **MPO** | Post-training compression, inference | Excellent for large matrices |
-| **Kronecker** | Full-rank updates, simple factorizations | Limited to certain matrix shapes |
-
-## Open Challenges
-
-1. **Compression-Realization Gap (ρ_gap)**: Bridging algorithmic compression and hardware realization
-2. **Dynamic Rank Adaptation**: Online rank adjustment during inference
-3. **Tensorization + Quantization**: Hybrid approaches for extreme compression
-4. **Theoretical Understanding**: When does tensorization preserve model capabilities?
-5. **Unified Evaluation Protocol**: Standard benchmarks for comparing tensor methods
-
-### Related GitHub pages
+## Related Projects
 
 - [Awesome Tensorial Neural Networks](https://github.com/tnbar/awesome-tensorial-neural-networks)
 - [Awesome Tensor Decomposition](https://github.com/vantienpham/Awesome-Tensor-Decomposition)
@@ -213,39 +243,3 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [Awesome LLM Compression](https://github.com/HuangOwen/Awesome-LLM-Compression)
 - [Awesome LLM Inference](https://github.com/xlite-dev/Awesome-LLM-Inference)
 - [Awesome LMMs Mechanistic Interpretability](https://github.com/itsqyh/Awesome-LMMs-Mechanistic-Interpretability)
-
-## Contributing
-
-We welcome contributions and collaborations to make this curated list more comprehensive and useful for the community!
-
-### Ways to Contribute
-- **Add new papers**: Suggest relevant papers we may have missed
-- **Update entries**: Improve descriptions, add missing metadata, or correct errors
-- **Suggest new categories**: Propose organizational improvements
-- **Share implementations**: Add links to official code repositories
-
-### How to Submit
-1. Fork the repository
-2. Make your changes 
-3. Submit a pull request with a clear description of your changes
-
-Alternatively, feel free to **open an issue** with your suggestions.
-
-### Contact
-For questions, collaborations, or major suggestions, reach out to:
-- **Matvei Tarasov**: [mattarasov704@gmail.com](mailto:mattarasov704@gmail.com)
-
-All contributions will be acknowledged in the repository.
-
-## Citation
-
-```BibTeX
-@misc{tarasov2026tensorsforllms,
-author = {Tarasov, Matvei and Ahmadi-Asl, Salman and de Almeida, Andr\'e L. F. and Cichocki, Andrzej},
-title = {Tensor Methods for Language Models: From Token Representation to Training, Adaptation, Compression, Inference, and Interpretability},
-eprint={tbd},
-archivePrefix={arXiv},
-year = {2026},
-url = {tbd}
-}
-```
