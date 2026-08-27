@@ -226,7 +226,7 @@ We welcome contributions and collaborations to make this curated list more compr
 
 ### How to Submit
 1. Fork the repository
-2. Make your changes (see [guidelines](#contribution-guidelines) below)
+2. Make your changes 
 3. Submit a pull request with a clear description of your changes
 
 Alternatively, feel free to **open an issue** with your suggestions.
