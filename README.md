@@ -30,6 +30,15 @@ The survey also provides:
 - connections to neighboring efficiency techniques and to probabilistic tensor networks
 - open challenges, in particular the *compression-realization gap*, formulated through the metric $\rho_{\rm gap}$, which separates algorithmic overhead from hardware realization
 
+## Quick Glossary
+
+- **CP (CANDECOMP/PARAFAC)**: Sum of rank-1 tensors; simplest decomposition
+- **TT (Tensor Train)**: Chain of 3rd-order cores; efficient for sequential data  
+- **Tucker**: Core tensor with factor matrices; most flexible
+- **MPO (Matrix Product Operator)**: TT for matrices; good for weight compression
+- **TTM (Tensor Train Matrix)**: TT representation of a matrix
+- **BT (Block-Term)**: Sum of Tucker decompositions
+
 ## Research Papers
 
 Papers are grouped by lifecycle stage, following the lifecycle view of the survey.
