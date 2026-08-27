@@ -187,6 +187,16 @@ Papers are grouped by lifecycle stage, following the lifecycle view of the surve
 - [A Practical Review of Mechanistic Interpretability for Transformer-Based Language Models](https://arxiv.org/abs/2407.02646)
 - [Mechanistic Interpretability for AI Safety -- A Review](https://arxiv.org/abs/2404.14082)
 
+## Choosing a Decomposition
+
+| Decomposition | Best For | Trade-offs |
+|---------------|----------|------------|
+| **CP** | Embedding tables, simple interactions | Rank selection is NP-hard |
+| **TT** | Sequential data, weight matrices | Moderate compression, good balance |
+| **Tucker** | Multi-head attention, projection groups | Most flexible but memory-intensive core |
+| **MPO** | Post-training compression, inference | Excellent for large matrices |
+| **Kronecker** | Full-rank updates, simple factorizations | Limited to certain matrix shapes |
+
 ### Related GitHub pages
 
 - [Awesome Tensorial Neural Networks](https://github.com/tnbar/awesome-tensorial-neural-networks)
