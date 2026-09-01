@@ -1,6 +1,6 @@
 # Tensor Methods for Language Models: From Token Representation to Training, Adaptation, Compression, Inference, and Interpretability
 
-<!-- [![arXiv](https://img.shields.io/badge/arXiv-tbd-b31b1b.svg)](tbd) -->
+[![arXiv](https://img.shields.io/badge/arXiv-2608.30505-b31b1b.svg)](https://arxiv.org/abs/2608.30505)
 
 A curated list of tensor methods for large language models — tensor decompositions and tensor networks applied inside the Transformer (embedding layer, attention, feed-forward networks) and across the model lifecycle, from tokenization through embeddings, pre-training, adaptation, compression, and inference to interpretability.
 
@@ -41,10 +41,10 @@ If you find our or this repository useful, please cite:
 @misc{tarasov2026tensorsforllms,
 author = {Tarasov, Matvei and Ahmadi-Asl, Salman and de Almeida, Andr\'e L. F. and Cichocki, Andrzej},
 title = {Tensor Methods for Language Models: From Token Representation to Training, Adaptation, Compression, Inference, and Interpretability},
-eprint={tbd},
+eprint={2608.30505},
 archivePrefix={arXiv},
 year = {2026},
-url = {tbd}
+url = {https://arxiv.org/abs/2608.30505}
 }
 ```
 
